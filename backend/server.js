@@ -7,10 +7,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const ***REMOVED*** = process.env.***REMOVED***;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = "models/gemini-1.5-flash"; // ✅ Recommended model
 
-if (!***REMOVED***) {
+if (!GEMINI_API_KEY) {
     console.error("❌ ERROR: Missing Gemini API Key. Check your .env file!");
     process.exit(1);
 }
@@ -20,7 +20,7 @@ app.post("/chat", async (req, res) => {
         const { message } = req.body;
 
         const response = await axios.post(
-            `https://generativelanguage.googleapis.com/v1beta/${GEMINI_MODEL}:generateContent?key=${***REMOVED***}`,
+            `https://generativelanguage.googleapis.com/v1beta/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
             {
                 contents: [{ parts: [{ text: message }] }]
             }
